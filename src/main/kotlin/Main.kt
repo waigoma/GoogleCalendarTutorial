@@ -1,8 +1,6 @@
-import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.Calendar
-import com.google.api.services.calendar.model.Event
-import com.google.api.services.calendar.model.EventDateTime
 import google.Connector
+import google.calendar.GetEvent
 import google.calendar.SetEvent
 
 class Main {
@@ -27,10 +25,10 @@ class Main {
         val event = SetEvent.createEvent(summary, description, startDateTime, endDateTime)
         SetEvent.registerEvent(event)
 
-        val events = service.events().list(calendarAddress)
-            .setTimeMax(DateTime("2022-05-25T00:00:00+09:00"))
-            .setTimeMin(DateTime("2022-05-27T00:00:00+09:00"))
-            .execute()
+        val min = SetEvent.createDateTime("2022", "05", "25", "09", "00")
+        val max = SetEvent.createDateTime("2022", "05", "27", "09", "00")
+
+        val events = GetEvent.getDuringEvent(min, max)
 
         println(events)
     }
