@@ -1,42 +1,31 @@
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
-import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.Calendar
-import com.google.api.services.calendar.CalendarScopes
 import com.google.api.services.calendar.model.Event
 import com.google.api.services.calendar.model.EventDateTime
-import com.google.auth.appengine.AppEngineCredentials
-import com.google.auth.http.HttpCredentialsAdapter
-import java.io.FileInputStream
-import java.util.Collections
+import google.Connector
+import google.calendar.SetEvent
 
 class Main {
-    private val filePath = ""
-    private val calendarAddress = ""
+    companion object {
+        lateinit var service: Calendar
+
+        const val APP_NAME = "GoogleCalendarTutorial"
+        const val calendarAddress = ""
+    }
+
+    private val keyFilePath = "tutorial/key.json"
 
     fun start() {
-        println("Hello, World!")
-        val HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport()
-        val credentials = AppEngineCredentials.fromStream(FileInputStream(filePath))
-            .createScoped(Collections.singleton(CalendarScopes.CALENDAR_EVENTS))
+        service = Connector.create(keyFilePath)
 
-        val service = Calendar.Builder(HTTP_TRANSPORT, JacksonFactory.getDefaultInstance(), HttpCredentialsAdapter(credentials))
-            .setApplicationName("GoogleCalendarTutorial")
-            .build()
-
-        val startEventDateTime = EventDateTime().setDateTime(DateTime("2022-05-26T09:00:00+09:00"))
-        val endEventDateTime = EventDateTime().setDateTime(DateTime("2022-05-26T10:00:00+09:00"))
+        val startDateTime = SetEvent.createDateTime("2022", "05", "26", "09", "00")
+        val endDateTime = SetEvent.createDateTime("2022", "05", "26", "10", "00")
 
         val summary = "Tutorial"
         val description = "This is a tutorial event"
 
-        var event = Event()
-            .setSummary(summary)
-            .setDescription(description)
-            .setStart(startEventDateTime)
-            .setEnd(endEventDateTime)
-
-        event = service.events().insert(calendarAddress, event).execute()
+        val event = SetEvent.createEvent(summary, description, startDateTime, endDateTime)
+        SetEvent.registerEvent(event)
 
         val events = service.events().list(calendarAddress)
             .setTimeMax(DateTime("2022-05-25T00:00:00+09:00"))
