@@ -28,11 +28,11 @@ class Main {
         val event = SetEvent.createEvent(summary, description, startDateTime, endDateTime)
         SetEvent.registerEvent(event)
 
-        val min = DateTimeManager.create("2022", "05", "25", "09", "00")
-        val max = DateTimeManager.create("2022", "05", "27", "09", "00")
+        val events = GetEvent.getTodayEvent()
 
-        val events = GetEvent.getDuringEvent(min, max)
-
+        for (str in events.items) {
+            println("${str.summary}, ${str.description}, ${str.start.dateTime}, ${str.end.dateTime}, ${str.htmlLink}")
+        }
         println(events)
     }
 }
