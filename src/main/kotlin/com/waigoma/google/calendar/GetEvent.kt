@@ -19,6 +19,7 @@ class GetEvent {
             return Main.service.events().list(Main.calendarAddress)
                 .setTimeMin(start)
                 .setTimeMax(end)
+                .setSingleEvents(true)
                 .execute()
         }
 
