@@ -1,4 +1,4 @@
-package google
+package com.waigoma.google
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
@@ -6,6 +6,7 @@ import com.google.api.services.calendar.Calendar
 import com.google.api.services.calendar.CalendarScopes
 import com.google.auth.appengine.AppEngineCredentials
 import com.google.auth.http.HttpCredentialsAdapter
+import com.waigoma.Main
 import java.io.FileInputStream
 import java.util.*
 

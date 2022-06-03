@@ -1,7 +1,8 @@
-package google.calendar
+package com.waigoma.google.calendar
 
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Events
+import com.waigoma.Main
 
 class GetEvent {
     companion object {

@@ -1,6 +1,6 @@
-package google.calendar
+package com.waigoma.google.calendar
 
-import Main
+import com.waigoma.Main
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
 import com.google.api.services.calendar.model.EventDateTime
@@ -16,11 +16,6 @@ class SetEvent {
                 .setDescription(description)
                 .setStart(startTime)
                 .setEnd(endTime)
-        }
-
-        fun createDateTime(year: String, month: String, day: String, hour: String, minute: String): DateTime {
-            // yyyy-MM-ddThh:mm:00+09:00
-            return DateTime("$year-$month-${day}T$hour:$minute:00+09:00")
         }
 
         fun registerEvent(event: Event) {
