@@ -1,6 +1,7 @@
 package com.waigoma.google
 
 import com.google.api.client.util.DateTime
+import java.text.SimpleDateFormat
 import java.util.Calendar
 
 class DateTimeManager {
@@ -44,7 +45,10 @@ class DateTimeManager {
         private fun getNDaysLaterFromToday(n: Int, hour: String="00", minute: String="00"): DateTime {
             val now = Calendar.getInstance()
             now.add(Calendar.DATE, n)
-            return create(now.get(Calendar.YEAR).toString(), (now.get(Calendar.MONTH)).toString(), now.get(Calendar.DATE).toString(), hour, minute)
+            val year = SimpleDateFormat("yyyy").format(now.time)
+            val month = SimpleDateFormat("MM").format(now.time)
+            val day = SimpleDateFormat("dd").format(now.time)
+            return create(year, month, day, hour, minute)
         }
     }
 }
